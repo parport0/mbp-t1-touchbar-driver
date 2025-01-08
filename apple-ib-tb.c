@@ -26,7 +26,7 @@
 
 #define dev_fmt(fmt) "tb: " fmt
 
-#include <linux/apple-ibridge.h>
+#include "linux/apple-ibridge.h"
 #include <linux/device.h>
 #include <linux/hid.h>
 #include <linux/input.h>

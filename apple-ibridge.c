@@ -38,7 +38,7 @@
  */
 
 #include <linux/acpi.h>
-#include <linux/apple-ibridge.h>
+#include "linux/apple-ibridge.h"
 #include <linux/device.h>
 #include <linux/hid.h>
 #include <linux/list.h>
@@ -46,8 +46,10 @@
 #include <linux/slab.h>
 #include <linux/usb.h>
 
-#include "hid-ids.h"
-#include "../hid/usbhid/usbhid.h"
+#define USB_VENDOR_ID_APPLE		0x05ac
+#define USB_DEVICE_ID_APPLE_IBRIDGE	0x8600
+#define hid_to_usb_dev(hid_dev) \
+	to_usb_device((hid_dev)->dev.parent->parent)
 
 #define APPLEIB_BASIC_CONFIG	1
 
@@ -514,11 +516,9 @@ static int appleib_probe(struct acpi_device *acpi)
 	return 0;
 }
 
-static int appleib_remove(struct acpi_device *acpi)
+static void appleib_remove(struct acpi_device *acpi)
 {
 	hid_unregister_driver(&appleib_hid_driver);
-
-	return 0;
 }
 
 static int appleib_suspend(struct device *dev)

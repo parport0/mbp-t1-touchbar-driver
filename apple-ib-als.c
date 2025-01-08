@@ -26,7 +26,7 @@
 
 #define dev_fmt(fmt) "als: " fmt
 
-#include <linux/apple-ibridge.h>
+#include "linux/apple-ibridge.h"
 #include <linux/device.h>
 #include <linux/hid.h>
 #include <linux/hid-sensor-ids.h>
@@ -483,7 +483,7 @@ static int appleals_config_iio(struct appleals_device *als_dev)
 	}
 
 	iio_trig = devm_iio_trigger_alloc(parent, "%s-dev%d", iio_dev->name,
-					  iio_dev->id);
+					  iio_device_id(iio_dev));
 	if (!iio_trig)
 		return -ENOMEM;
 
